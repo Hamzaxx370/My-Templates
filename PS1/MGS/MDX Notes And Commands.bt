@@ -1,0 +1,22 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+enum<u8>CMD{
+    TrackEnd = 0xFF,
+    BankChange = 0xD2,
+    Silence = 0xF2,
+    MasterVolume = 0xD5,
+    ChannelLoopStart = 0xEB,
+    SectionLoopStart = 0xE7,
+    ChannelLoopEnd = 0xEC,
+    SectionLoopEnd = 0xE8,
+};

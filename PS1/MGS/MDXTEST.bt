@@ -1,0 +1,90 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "../../Common/includes/include.h"
+#include "MDX Notes And Commands.bt"
+LittleEndian();
+typedef struct
+{
+    u32 MDXCount;
+    local int e;
+    for (e=0;e<MDXCount;e++){
+        
+        u32 MDXPointer;
+   
+    }
+    
+}hdr;
+hdr Header;
+
+local int mdx;
+for (mdx=0;mdx<Header.MDXCount;mdx++){
+    FSeek(Header.MDXPointer[mdx]);
+    typedef struct
+    {
+        
+        typedef struct
+        {
+            local int f;
+            for (f=0;f<24;f++){
+                u32 TrackPointer;
+            }
+        }pointers;
+        pointers Pointers;
+        
+        
+        local int f;
+        for (f=0;f<24;f++){
+            FSeek(Pointers.TrackPointer[f]);
+            
+            typedef struct{
+                while (1){
+                    FSkip(3);
+                    u8 test<hidden=true>;
+                    FSkip(-4);
+                    if (test==0xFF){
+                        break;
+                    }
+                    
+                    if (test<=0x60){
+                        typedef struct{
+                            u8 Velocity;
+                            u8 Length;
+                            u8 Snap;
+                            CMD Command;
+                        }evnt0;
+                        evnt0 NoteEvent;
+                    }
+                    else if (test>0x60){
+                        typedef struct{
+                            u8 arg3;
+                            u8 arg2;
+                            u8 arg1;
+                            CMD Command;
+                        }evnt1;
+                        evnt1 Command;
+                    }
+                    
+                    
+                    
+                        
+                }
+                byte TrackEnd[4];
+            }trk;
+            trk Track;
+        }
+        
+        
+    }MDX;
+    MDX MDXFILE;
+    
+}

@@ -1,0 +1,74 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "../../Common/includes/include.h"
+#include "MDX Notes And Commands.bt"
+LittleEndian();
+typedef struct
+{
+    u32 MDXCount;
+    local int e;
+    for (e=0;e<MDXCount;e++){
+        
+        u32 MDXPointer;
+   
+    }
+    
+}hdr;
+hdr Header;
+
+local int mdx;
+for (mdx=0;mdx<Header.MDXCount;mdx++){
+
+    typedef struct
+    {
+        
+        typedef struct
+        {
+            local int f;
+            for (f=0;f<24;f++){
+                u32 TrackPointer;
+            }
+        }pointers;
+        pointers Pointers;
+        
+        
+        local int f;
+        for (f=0;f<24;f++){
+            FSeek(Pointers.TrackPointer[f]);
+            
+            typedef struct{
+                
+            
+                
+                typedef struct{
+                    u8 arg3;
+                    u8 arg2;
+                    u8 arg1;
+                    CMD Command;
+                }evnt;
+                evnt Event;
+                
+                if (Event.Command==0xFF){
+                    break;
+                }
+                
+            
+            }trk;
+            trk Track;
+        }
+        
+        
+    }MDX;
+    MDX MDXFILE;
+    
+}

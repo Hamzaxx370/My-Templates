@@ -1,0 +1,129 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "../../Common/includes/include.h"
+LittleEndian();
+typedef struct
+{
+    u32 StageCount;
+    
+        
+    local int e;
+    for (e=0;e<StageCount/12;e++){
+        typedef struct
+        {
+            
+            char FolderName[8];
+            u32 StageSector;
+        
+        }stgptr;
+        stgptr StagePointer;
+    }
+        
+    
+    
+}hdr;
+hdr Header;
+
+typedef struct
+{
+    
+    local int stages;
+    for (stages=0;stages<Header.StageCount/12;stages++){
+        FSeek(Header.StagePointer[stages].StageSector*2048);
+        
+        typedef struct
+        {
+            local int STGSTRT = FTell();
+            local int FileNum = 0;
+            local int CFILENUM = 0;
+            local int CFILEPOS;
+            
+            u16 unk;
+            u16 StageDataLength;
+            while (true){
+            
+                FSkip(2);
+                u8 verify<hidden = true>;
+                FSkip(-3);
+                
+                if (verify==0x00){
+                    break;
+                }
+                
+                typedef struct
+                {
+                    u16 Hash;
+                    char FileType[2];
+                    u32 FileSize;
+                    FileNum++;
+                    
+                }fileinf;
+                fileinf FileInfo;
+            
+            
+            }
+            FSeek(STGSTRT+2048);
+            local int e;
+            for (e=0;e<FileNum;e++){
+                if ((FileInfo[e].FileType[0])==99 && ((FileInfo[e].FileType[1])!=-1)){
+                    
+                    if (CFILENUM==0){
+                        CFILEPOS = FTell();
+                    }
+                    
+                    
+                    typedef struct{
+                        
+                        byte File[(FileInfo[e+1].FileSize)-(FileInfo[e].FileSize)];
+                    
+                    }cf;
+                    cf CFile;
+                    
+                    CFILENUM++;
+                    
+                    
+                }
+                else if ((FileInfo[e].FileType[0])==99 && ((FileInfo[e].FileType[1])==-1)){
+                
+                }
+                else{
+                    
+                    FSkip((2048-(FTell() % 2048))%2048);
+                    
+                    typedef struct
+                    {
+                        
+                        byte File[FileInfo[e].FileSize];
+                        FSkip((2048-(FTell() % 2048))%2048);
+                        
+                    }file;
+                    file File;
+                    
+                }
+                
+            }
+            local string NME = (Header.StagePointer[stages].FolderName);
+            
+            
+            
+            
+            
+        }stg;
+        stg Stage<name = NME>;
+       
+        
+    }
+    
+    
+}stgs;
+stgs Stages;
