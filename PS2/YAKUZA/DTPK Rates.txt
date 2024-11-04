@@ -1,0 +1,3 @@
+22050 = 64189
+16000 = 63634
+In 010, while running the dtpk template, go to Binary Sample Rate and switch the u32 with the numbers above

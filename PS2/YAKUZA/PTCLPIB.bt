@@ -1,0 +1,154 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "../../Common/includes/include.h"
+
+typedef struct
+{
+    
+    char Name[12];
+    u32 FileSize;
+    u32 Chunk1Count;
+    u32 Chunk2Count;
+    u32 Chunk3Count;
+    u32 Chunk4Count;
+    u32 DataStart;
+    byte Pad[12];
+    
+}hdr;
+hdr Header<bgcolor = cGreen>;
+
+FSeek(Header.DataStart);
+
+typedef struct
+{
+    local int ch1;
+    for (ch1=0;ch1<Header.Chunk1Count;ch1++){
+        
+        typedef struct
+        {
+            byte Unknown1[68];
+            u32 Pointer;
+            byte Unknown2[168];
+            
+            
+        }dt1;
+        dt1 Data<bgcolor = cBlue>;
+        
+    }
+    
+    
+    
+}ch1;
+ch1 Chunk1;
+
+typedef struct
+{
+    
+    local int ch2;
+    for (ch2=0;ch2<Header.Chunk2Count;ch2++){
+        
+        FSeek(Chunk1.Data[ch2].Pointer);
+        typedef struct
+        {
+            
+            u32 unk;
+            u32 unk;
+            u32 unk;
+            float FadeStuff;
+            float FadeStuff;
+            u32 unk;
+            byte unk1[16];
+            u32 Pointer;
+            float idk;
+            typedef struct
+            {
+                float X;
+                float Y;
+                float Z;
+                u32 Val;
+                float X;
+                float Y;
+                float Z;
+                u32 pad;
+                
+            }st;
+            st XYZ;
+            
+            typedef struct
+            {
+                float Red;
+                float Green;
+                float Blue;
+                float Alpha;
+                float Red;
+                float Green;
+                float Blue;
+                float Alpha;
+                
+            }st1;
+            st1 RGBDATA;
+            
+            byte Unknown[8];
+            typedef struct
+            {
+                
+                float X;
+                float Y;
+                float Z;
+                float IDK;
+            
+            }st3;
+            st3 Scale;
+            byte NOCLUE[136];
+            
+            FSeek(Pointer);
+            
+            u32 Pointer;
+            
+            local int g;
+            for (g=1;g<2;g++){
+                FSeek(Pointer[g]);
+                
+                typedef struct
+                {
+                    
+                    u32 unk;
+                    u32 unk;
+                    u32 pad;
+                    float Val;
+                    float Val;
+                    float Val;
+                    float Val;
+                    float Val;
+                    float Val;
+                    float Val;
+                    float Val;
+                    float Val;
+                    float Val;
+                    float Val;
+                    float Val;
+                    float Val;
+                    
+                }st2;
+                st2 Struct;
+            }
+                
+            
+        }dt2;
+        dt2 Data<bgcolor = cRed>;
+        
+        
+    }
+       
+}ch2;
+ch2 Chunk2;

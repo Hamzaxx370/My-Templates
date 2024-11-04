@@ -1,0 +1,26 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+enum<u16>SDNAMES{
+KIRYU=2473,
+KiryuHact1=1199,
+KiryuHact2=1455,
+KiryuHact3=1711,
+SHIMANO=5289,
+LAU=13993,
+NISHIKI=16553,
+ARASE=10665,
+MAJIMA1= 5545,
+MAJIMA2 =21673,
+BATTLESFX=1449,
+
+};

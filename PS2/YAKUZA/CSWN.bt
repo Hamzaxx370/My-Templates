@@ -1,0 +1,185 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "../../Common/includes/include.h"
+typedef struct
+{
+    SetRandomBackColor();
+    u32 EndOfPointers;
+    u32 Unk;
+    char Identfier[4];
+    u32 pad;
+    u32 Chunk1PTR;
+    u32 Chunk1CNT;
+    u32 Chunk2PTR;
+    u32 Chunk2CNT;
+    u32 Chunk3PTR;
+    u32 Chunk3CNT;
+    u32 Chunk4PTR;
+    u32 Chunk4CNT;
+    u32 Chunk5PTR;
+    u32 Chunk5CNT;
+    u32 Chunk6PTR;
+    u32 Chunk6CNT;
+    u32 Chunk7PTR;
+    u32 Chunk7CNT;
+    u32 Chunk8PTR;
+    u32 Chunk8CNT;
+    u32 FileSize;
+    
+    
+    
+}hdr;
+hdr Header;
+FSeek(Header.Chunk1PTR);
+typedef struct
+{
+    SetRandomBackColor();
+    local int c1;
+    for (c1=0;c1<Header.Chunk1CNT;c1++)
+    {
+        typedef struct
+        {
+            float Float;
+            float Float;
+            float Float;
+            u32 pad;
+            float Float;
+            float Float;
+            float Float;
+            u32 pad;
+            u32 Pointer;
+            u32 Pointer;
+            u32 Pointer;
+            u32 Pointer;
+        }ent;
+        ent Entry;
+    }
+    
+    
+}c1;
+c1 Chunk1;
+FSeek(Header.Chunk2PTR);
+typedef struct
+{
+    local int c2;
+    for (c2=0;c2<Header.Chunk2CNT;c2++)
+    {
+        typedef struct
+        {
+            SetRandomBackColor();
+            typedef struct
+            {
+                u32 Pointer1;
+                u32 Count1;
+                u32 Pointer2;
+                u32 Count2;
+                u32 Pointer3;
+                u32 Count3;
+                byte Padding[8];
+            }ptrs2;
+            ptrs2 Pointers;
+            local int return2 = FTell();
+            FSeek(Pointers.Pointer1);
+            typedef struct
+            {
+                local int c21;
+                for (c21=0;c21<Pointers.Count1;c21++)
+                {
+                    typedef struct
+                    {
+                        
+                        float Float;
+                        float Float;
+                        float Float;
+                        float Float;
+                        byte Unknown[8];
+                        u32 Pointer;
+                        u32 Count;
+                        
+                    }unk2;
+                    unk2 Unknown;
+                }
+                
+                
+            }dt1;
+            dt1 Data1;
+            FSeek(return2);
+            FSeek(Pointers.Pointer2);
+            typedef struct
+            {
+                SetRandomBackColor();
+                local int c22;
+                for (c22=0;c22<Pointers.Count2;c22++)
+                {
+                    typedef struct
+                    {
+                        
+                        float Float;
+                        float Float;
+                        float Float;
+                        float Float;
+                        float Float;
+                        float Float;
+                        byte Unknown[8];
+                        float Float;
+                        float Float;
+                        float Float;
+                        float Float;
+                        float Float;
+                        float Float;
+                        u32 Pointer;
+                        u32 Count;
+                        
+                    }unk22;
+                    unk22 Unknown;
+                }
+                
+                
+            }dt2;
+            dt2 Data2;
+            FSeek(return2);
+            FSeek(Pointers.Pointer3);
+            typedef struct
+            {
+                SetRandomBackColor();
+                local int c23;
+                for (c23=0;c23<Pointers.Count3;c23++)
+                {
+                    typedef struct
+                    {
+                        
+                        float Float;
+                        float Float;
+                        float Float;
+                        float Float;
+                        byte Unknown[8];
+                        u32 Pointer;
+                        u32 Count;
+                        
+                    }unk3;
+                    unk3 Unknown;
+                }
+                
+                
+            }dt3;
+            dt3 Data3;
+            FSeek(return2);
+            
+        }ent2;
+        ent2 Entry;
+    }
+    
+    
+}c2;
+c2 Chunk2;
+

@@ -1,0 +1,42 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "../../Common/includes/include.h"
+LittleEndian();
+typedef struct
+{
+    u32 StageCount;
+    local int e;
+    for (e=0;e<StageCount;e++){
+        typedef struct
+        {
+            char Unknown[64];
+            typedef struct
+            {
+                
+                float P0<name = "X Position">;
+                float P1<name = "Y Position">;
+                float P2<name = "Z Position">;
+                float P3<name = "W Rotation">;
+                
+            }pos;
+            pos Position;
+            
+        }stg;
+        stg Stage;
+        
+        
+    } 
+    
+    
+}PlPos;
+PlPos PlayerPos;
