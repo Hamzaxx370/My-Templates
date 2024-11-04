@@ -1,0 +1,102 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "../../Common/includes/include.h"
+typedef struct
+{
+    char Identfier[8];
+    u16 Count1;
+    u16 Count2;
+    u16 Count3;
+    u16 Count4;
+    u32 Pointer1;
+    u32 Pointer2;
+    
+    
+}hdr;
+hdr Header;
+
+FSeek(Header.Pointer1);
+
+typedef struct
+{
+    
+    local int e;
+    for (e=0;e<Header.Count1;e++)
+    {
+        
+        typedef struct
+        {
+            
+            u32 Pointer;
+            u16 Count1;
+            u16 Count2;
+            u16 Count3;
+            byte Unknown[54];
+            FSeek(Pointer);
+            local int f;
+            for (f=0;f<Count2;f++)
+            {
+                typedef struct
+                {
+                    u32 unk;
+                    u32 unk;
+                    u32 Pointer1;
+                    u32 unk;
+                    float Float;
+                    float Float;
+                    byte Constant[8];
+                    u32 unk;
+                    u32 Pointer2;
+                    byte Padding[24];
+                    local int returnpos = FTell();
+                    FSeek(Pointer2);
+                    byte Unknown1[92];
+                    u32 Pointer3;
+                    byte Unknown2[96];
+                    FSeek(returnpos);
+                }dt;
+                dt Data;
+            }
+        }prp;
+        prp Property;
+        
+    }
+    
+}st;
+st Struct;
+
+FSeek(Header.Pointer2);
+typedef struct
+{
+    
+    local int e;
+    for (e=0;e<Header.Count2;e++)
+    {
+        
+        typedef struct
+        {
+            
+            u32 ID;
+            char pad[12];
+            float Left;
+            float Top;
+            float Right;
+            float Bottom;
+            
+        }tex;
+        tex TextureSection;
+        
+    }
+       
+}uv;
+uv UVs;

@@ -1,0 +1,121 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: DTPK.bt
+//   Authors: Hamzaxx360
+//   Version: 
+//   Purpose: Parse PS2 Yakuza SFX files
+//  Category: .ps2
+// File Mask: 
+//  ID Bytes: 70 73 32 5F 44 54 50 4B
+//   History: 
+//------------------------------------------------
+LittleEndian();
+#include "../../Common/includes/include.h"
+
+typedef struct
+{
+
+    SetRandomBackColor();
+    char Identifier [8];
+    u32 Unk0;            //always the same in all DTPK files
+    u32 DTPK_Size;
+    u32 TBLD_Size;
+    u32 Pad1 <hidden=true>;
+    u32 VAGD_Size;
+    u32 VAGD_Pointer;
+
+}header;
+header DTPK_Header;
+
+typedef struct
+{
+
+SetRandomBackColor();
+FSeek(96);
+char Identifier[8]; 
+u32 Unk0;
+u32 TBLD_size; //should be added by 32 to be correct
+FSkip(56);
+u32 Binary_Table_Pointer;
+FSkip(12);
+u32 Sample_Table_Pointer;
+    
+    typedef struct
+    {
+        SetRandomBackColor();
+        FSeek(Binary_Table_Pointer);
+        FSkip(16);
+        u16 Binary_Sample_Number;
+        FSkip(12);
+        
+        typedef struct
+        {
+            
+            u32 Binary_Sample_Rate;
+            
+            
+            
+         }loop1;
+         
+         local int b;
+         for (b=0;b<Binary_Sample_Number+1;b++) {
+             
+             if (b < Binary_Sample_Number +1 ) {
+                 
+                 FSkip (28);
+                 
+                 }
+             
+            
+         loop1 Sample;
+         }    
+    
+ 
+    
+    }BinaryTable;
+    BinaryTable Binary_Table;
+    
+    typedef struct
+    {
+        
+        SetRandomBackColor();
+        FSeek (Sample_Table_Pointer);
+        u32 Sample_Number;
+    
+        typedef struct
+        {
+        
+        
+        u32 Sample_Offset;
+        FSkip (6);
+        u16 False_Sample_Rate;    // The bytes in the Binary Table are what determines the sample rate. The one here doesn't do anything
+        u32 Sample_Size;
+        
+        }loop2;
+    
+        local int s;
+        for (s=0;s<Sample_Number+1;s++) {
+        loop2 SampleInfo;
+        }
+        
+             
+    
+    }SampleTable;
+    SampleTable Sample_Table;
+    
+}tbl;
+tbl TBLD;
+
+typedef struct 
+{
+    
+    SetRandomBackColor();
+    FSeek (DTPK_Header.VAGD_Pointer);
+    char Identfier[8];
+    u32 unk0;
+    u32 VAGD_Size;
+    byte VAG_Audio_Data[VAGD_Size];
+
+}vagd;
+vagd VAGD;
