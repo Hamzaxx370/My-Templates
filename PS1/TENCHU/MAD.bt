@@ -1,0 +1,37 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "../../Common/includes/include.h"
+LittleEndian();
+u32 Unknown;
+typedef struct
+{
+    
+    u32 BoneCount;
+    local int e;
+    for (e=0;e<BoneCount;e++){
+        typedef struct
+        {
+            u16 ParentBone;
+            u16 BoneIndex;
+            s16 X;
+            s16 Y;
+            s16 Z;
+            u16 PadFF;
+            u32 VertGroupPointer;
+            
+        }bn;
+        bn Bone;
+    }
+    
+}bns;
+bns Bones;
