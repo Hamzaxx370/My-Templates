@@ -83,6 +83,9 @@ typedef struct
         
         FSeek(Pointers.EFFECTPOINTER[ef]+44);
         u32 DataType<hidden=true>;
+        FSkip(12);
+        u32 SubType<hidden = true>;
+        
         
         
         FSeek(Pointers.EFFECTPOINTER[ef]);  
@@ -155,49 +158,207 @@ typedef struct
             sd1 SD<name= "Sound Cue">;
         }
         else if (DataType==4){
-            typedef struct
+            
+            if (SubType == 0)
             {
+                typedef struct
+                {
+                    
+                    u32 ParentID;
+                    float f1<name = "Frame Start">;
+                    float f2<name = "Frame End">;
+                    float f3<name = "Speed">;
+                    FSeek(Pointers.EFFECTPOINTER[ef]+16);
+                    byte p9[60]<name = "Unknown">;
+                    u32 dmg <name = "Damage Value">;
+                    byte p10[16]<name = "Unknown">;
+                }dmg;
+                dmg Damage;
+            }
+            else if (SubType == 6)
+            {
+                typedef struct
+                {
+                    u32 ParentID;
+                    float f1<name = "Frame Start">;
+                    float f2<name = "Frame End">;
+                    float f3<name = "Speed">;
+                    byte pad[60]<name = "Unknown">;
+                    u32 Unknown;
+                    byte pad1[0x10]<name = "Unknown">;
+                }lp;
+                lp LoopEffect;
+            }
+            else if (SubType == 7)
+            {
+                typedef struct
+                {
+                    u32 ParentID;
+                    float f1<name = "Frame Start">;
+                    float f2<name = "Frame End">;
+                    float f3<name = "Speed">;
+                    byte pad[76]<name = "Unknown">;
+                    u16 Button;
+                    u16 Count;
+                    
+                }btnrnd;
+                btnrnd ButtonSpam;
+            }
+            else if (SubType == 8)
+            {
+                typedef struct
+                {
+                    u32 ParentID;
+                    float f1<name = "Frame Start">;
+                    float f2<name = "Frame End">;
+                    float f3<name = "Speed">;
+                    byte pad[76]<name = "Unknown">;
+                    u32 Button;
+                   
+                    
+                }btntim;
+                btntim ButtonTiming;
+            }
+            else{
+                typedef struct{
+                    
+                    byte Unknown[96];
+                }Unk;
+                Unk Unknown;
+            }
+            
                 
-                u32 ParentID;
-                float f1<name = "Frame Start">;
-                float f2<name = "Frame End">;
-                float f3<name = "Speed">;
-                FSeek(Pointers.EFFECTPOINTER[ef]+16);
-                byte p9[60]<name = "Unknown">;
-                u32 dmg <name = "Damage Value">;
-                byte p10[16]<name = "Unknown">;
-            }dmg;
-            dmg Damage;
+            
         }
         else if (DataType==0){
             
-            
-            typedef struct
+            if (SubType == 0x3c||SubType == 0x3d||SubType == 0x3e||SubType == 0x3f)
             {
-                u32 ParentID;
-                float f1<name = "Frame Start">;
-                float f2<name = "Frame End">;
-                float f3<name = "Speed">;
-                FSeek(Pointers.EFFECTPOINTER[ef]+16);
-                u32 Unknown;
-                byte P1[32]<name = "Unknown">;
-                u8 Blue;
-                u8 Green;
-                u8 Red;
-                u8 Opacity;
-                byte P2[40]<name = "Unknown">;
+                typedef struct
+                {
+                    u32 ParentID;
+                    float f1<name = "Frame Start">;
+                    float f2<name = "Frame End">;
+                    float f3<name = "Speed">;
+                    FSeek(Pointers.EFFECTPOINTER[ef]+16);
+                    u32 Unknown;
+                    byte P1[32]<name = "Unknown">;
+                    u8 Blue;
+                    u8 Green;
+                    u8 Red;
+                    u8 Opacity;
+                    byte P2[40]<name = "Unknown">;
+                    
+                    
+                }ScrFade;
+                ScrFade Screen<name = "Screen Fade">;
                 
+            }
+            
+            else if (SubType == 0x31 || SubType == 0x29)
+            {
+                typedef struct
+                {
+                    u32 ParentID;
+                    float f1<name = "Frame Start">;
+                    float f2<name = "Frame End">;
+                    float f3<name = "Speed">;
+                    FSeek(Pointers.EFFECTPOINTER[ef]+16);
+                    u32 Unknown;
+                    byte P1[32]<name = "Unknown">;
+                    u8 Blue;
+                    u8 Green;
+                    u8 Red;
+                    u8 Opacity;
+                    byte P2[40]<name = "Unknown">;
+                    
+                    
+                }ScrFlsh;
+                ScrFlsh Screen<name = "Screen Flash??">;
                 
-            }Scr;
-            Scr Screen<name = "Either PIB or Screen Effect">;
+            }
+            
+            else if (SubType == 0x43)
+            {
+                typedef struct
+                {
+                    u32 ParentID;
+                    float f1<name = "Frame Start">;
+                    float f2<name = "Frame End">;
+                    float f3<name = "Speed">;
+                    FSeek(Pointers.EFFECTPOINTER[ef]+16);
+                    u32 Unknown;
+                    byte P1[32]<name = "Unknown">;
+                    u8 Blue;
+                    u8 Green;
+                    u8 Red;
+                    u8 Opacity;
+                    byte P2[40]<name = "Unknown">;
+                    
+                    
+                    
+                }ScrPlt;
+                ScrPlt Screen<name = "Screen Palette Animation">;
+                
+            }
+            else if (SubType == 0x49)
+            {
+                typedef struct
+                {
+                    u32 ParentID;
+                    float f1<name = "Frame Start">;
+                    float f2<name = "Frame End">;
+                    float f3<name = "Speed">;
+                    FSeek(Pointers.EFFECTPOINTER[ef]+16);
+                    u32 Unknown;
+                    byte P1[32]<name = "Unknown">;
+                    u8 Blue;
+                    u8 Green;
+                    u8 Red;
+                    u8 Opacity;
+                    byte P2[40]<name = "Unknown">;
+                    
+                    
+                }ScrEfct;
+                ScrEfct Screen<name = "Screen Effect Event">;
+                
+            }
+            else if (SubType == 0x4c)
+            {
+                typedef struct
+                {
+                    u32 ParentID;
+                    float f1<name = "Frame Start">;
+                    float f2<name = "Frame End">;
+                    float f3<name = "Speed">;
+                    byte P1[60]<name = "Unknown">;
+                    u32 Vib1<name = "Vibration Rotor 1">;
+                    byte P2[12]<name = "Unknown">;
+                    u32 Vib2<name = "Vibration Rotor 2">;
+                    
+                    
+                    
+                }Vib;
+                Vib Vibration<name = "Controller Vibration">;
+                
+            }
+            else{
+                typedef struct{
+                    
+                    byte Unknown[96];
+                }Unk2;
+                Unk2 Unknown;
+            }
+            
         }
         else{
             typedef struct{
                 
                 byte Unknown[96];
-            }Unk;
-            Unk Unknown;
+            }Unk1;
+            Unk1 Unknown;
         }
+        
         
         
     "test";
