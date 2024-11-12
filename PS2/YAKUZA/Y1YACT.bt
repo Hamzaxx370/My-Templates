@@ -98,7 +98,7 @@ typedef struct
                 float f2<name = "Frame End">;
                 float f3<name = "Speed">;
                 FSeek(Pointers.EFFECTPOINTER[ef]+16);
-                u32 Unknown;
+                u32 BoneNum<name = "Bone Number">;
                 byte P1[16]<name = "Unknown">;
                 u8 Blue;
                 u8 Green;
@@ -184,7 +184,7 @@ typedef struct
                     float f2<name = "Frame End">;
                     float f3<name = "Speed">;
                     byte pad[60]<name = "Unknown">;
-                    u32 Unknown;
+                    u32 Max<name = "Max number of loops">;
                     byte pad1[0x10]<name = "Unknown">;
                 }lp;
                 lp LoopEffect;
@@ -218,6 +218,23 @@ typedef struct
                     
                 }btntim;
                 btntim ButtonTiming;
+            }
+            else if (SubType == 9)
+            {
+                typedef struct
+                {
+                    u32 ParentID;
+                    float f1<name = "Frame Start">;
+                    float f2<name = "Frame End">;
+                    float f3<name = "Speed">;
+                    byte pad1[60]<name = "Unknown">;
+                    u32 Unknown;
+                    byte pad2[16]<name = "Unknown">;
+                    
+                   
+                    
+                }lpend;
+                lpend LoopEndEffect;
             }
             else{
                 typedef struct{
