@@ -3,109 +3,210 @@
 //
 //      File: PTCL.bt
 //   Authors: Hamzaxx360
-//   Version: 
-//   Purpose: Parse PTCL dats
+//   Version: 1
+//   Purpose: Parse Particle Files
 //  Category: 
-// File Mask: .dat
+// File Mask: .ptcl
 //  ID Bytes: 
 //   History: 
 //------------------------------------------------
 #include "../../Common/includes/include.h"
-LittleEndian();
-typedef struct 
-
+FSeek(40);
+u32 VerifyGame<hidden=true>;
+FSeek(0);
+typedef struct
 {
-    SetRandomBackColor();
-    u32 Dat_Type;
-    u32 Padding <hidden=true>;
-    u32 unk0;
-    u32 unk1;
-    u32 Beginning_Of_PTCL;
-    u32 unk3;
-    u32 unk4;
-    u32 Padding <hidden=true>;
-    u32 End_TLFD;
-    u32 unk5;
-    u32 unk6;
-    u32 unk7;
-
-} header;
-header Header;
-
-    typedef struct
     
+    char Name[12];
+    u32 FileSize<name = "File Size">;
+    u32 Chunk1Count<name = "Chunk 1 Count">;
+    u32 Chunk2Count<name = "Emitter Count">;
+    u32 Chunk3Count<name = "Chunk 3 Count">;
+    u32 Chunk4Count<name = "Chunk 4 Count">;
+    u32 DataStart<name = "Data Start">;
+    if (VerifyGame !=0)
     {
-        SetRandomBackColor();
-         
-        u32 ParticleData_Table_Offset;    //These values should be added by 48 to be correct
-        
-        u32 Particle_Count;
-        u32 OME_Table_Offset;
-        u32 OME_Count;
-        u32 TXB_Table_Offset;
-        u32 TXB_Count;
+        byte Pad1[4]<hidden=true>;
+        u32 PIBID<name = "PIB ID">;
+        byte Pad2[4]<hidden=true>;
+    }
+    else
+    {
+        byte Pad[12]<hidden=true>;
+    }
     
-    } pointers;
-    pointers Pointers;
+}hdr;
+hdr Header<bgcolor = cGreen>;
+
+FSeek(Header.DataStart);
 
 typedef struct
-
 {
-    SetRandomBackColor();
-    u32 ParticleFile;
-
-} badcode1;
-
-typedef struct
-
-{
-    SetRandomBackColor();
-    u32 OMEFile;
-
-} badcode2;
-typedef struct
-
-{
-    SetRandomBackColor();
-    u32 TXBFile;
-
-} badcode3;
-
-typedef struct
-
-{
-
-    local int p;
-    const u32 Poffset = (Pointers.ParticleData_Table_Offset + 48);
-    for (p=0;p<Pointers.Particle_Count;p++) {
+    local int ch1;
+    for (ch1=0;ch1<Header.Chunk1Count;ch1++){
         
+        typedef struct
+        {
+            byte Unknown1[68];
+            u32 Pointer;
+            if (VerifyGame!=0)
+            {
+                byte Unknown2[8];
+            }
+            else
+            {
+                byte Unknown2[168];
+            }
+            
+            
+            
+        }dt1;
+        dt1 Data<bgcolor = cBlue>;
+        
+    }
     
-        FSeek (Poffset + (p * 4));
+    
+    
+}ch1;
+ch1 Chunk1;
+
+typedef struct
+{
+    
+    local int ch2;
+    for (ch2=0;ch2<Header.Chunk2Count;ch2++){
         
-        badcode1 Particle_Pointer;
-
-}
-    local int o;
-        const u32 Ooffset = (Pointers.OME_Table_Offset + 48);
-        for (o=0;o<Pointers.OME_Count;o++) {
+        FSeek(Chunk1.Data[ch2].Pointer);
+        typedef struct
+        {
             
+            u16 StructCount<name = "Texture Animation Count">;
+            u16 unk1<name = "Unknown">;
+            u32 unk2<name = "Unknown">;
+            u32 unk3<name = "Unknown">;
+            float FadeStuff1<name = "Duration?">;
+            float FadeStuff2<name = "Duration?">;
+            u32 unk4<name = "Unknown">;
+            u32 unk5<name = "Unknown">;
+            u32 VertexType<name = "Vertex Type">;
+            u32 RenderType<name = "Render State">;
+            u16 ModelID<name = "Model ID">;
+            u16 TexID<name = "Texture ID">;
+            u32 Pointer<name = "Pointer To Pointers">;
+            float idk<name = "Unknown">;
+            typedef struct
+            {
+                float X;
+                float Y;
+                float Z;
+                float idk;
+            }xyz1;
+            xyz1 XYZ1<name = "Start XYZ Offset">;
+            typedef struct
+            {
+                float X;
+                float Y;
+                float Z;
+                float idk;
+            }xyz2;
+            xyz2 XYZ2<name = "End XYZ Offset">;
+            
+            typedef struct
+            {
+                float Red;
+                float Green;
+                float Blue;
+                float Alpha;
+            }rgb1;
+            rgb1 RGBDATA1<name = "Emitter RGB Data 1">;
+            
+            typedef struct
+            {
+                float Red;
+                float Green;
+                float Blue;
+                float Alpha;
+            }rgb2;
+            rgb2 RGBDATA2<name = "Emitter RGB Data 2">;
+                
+            
+            
+            byte Unknown[8];
+            typedef struct
+            {
+                
+                float X;
+                float Y;
+                float Z;
+                float idk;
+            
+            }scale1;
+            scale1 Scale1<name = "Emitter Scale 1">;
+            
+            typedef struct
+            {
+                
+                float X;
+                float Y;
+                float Z;
+                float idk;
+            
+            }scale2;
+            scale2 Scale2<name = "Emitter Scale 2">;
+            u32 unk6<name = "Unknown">;
+            u32 unk7<name = "Unknown">;
+            typedef struct
+            {
+                s16 X;
+                s16 Y;
+                s16 Z;
+            }Rot1;
+            Rot1 Rotation1<name = "Emitter Rotation 1">;
+            typedef struct
+            {
+                s16 X;
+                s16 Y;
+                s16 Z;
+            }Rot2;
+            Rot2 Rotation2<name = "Emitter Rotation 2">;
+            byte NOCLUE[100];
+            
+            FSeek(Pointer);
+            
+            u32 Pointer1[StructCount]<name = "Pointers To Texture Animation">;
+            
+            local int g;
+            for (g=0;g<StructCount;g++){
+                FSeek(Pointer1[g]);
+                while (true)
+                {
+                    typedef struct
+                    {
+                        u32 Unknown;
+                        byte unk1[8]<name = "Unknown">;
+                        float Alpha;
+                        byte unk2[48]<name = "Unknown">;
+                        
+                    }st2;
+                    st2 Struct<name = "Texture Animation">;
+                    u32 Verify<hidden = true>;
+                    FSkip(-4);
+                    if (Verify == Struct.Unknown)
+                    {
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+                
+            
+        }dt2;
+        dt2 Emitter<bgcolor = cRed>;
         
-            FSeek (Ooffset + (o * 4));
-            
-        badcode2 OME_Pointer;
-
-}
-    local int t;
-        const u32 Toffset = (Pointers.TXB_Table_Offset + 48);
-        for (t=0;t<Pointers.TXB_Count;t++) {
-            
         
-            FSeek (Toffset + (t * 4));
-            
-        badcode3 TXB_Pointer;
-
-}
-
-}table;
-table FileTable;
-
+    }
+       
+}ch2;
+ch2 Emitters;
